@@ -87,9 +87,13 @@ else
         bot = (BF<cb);
         if sum(bot)==0
             ci(1) = times(1) + (times(2)-times(1)).*(cb./BF(1));
-        else
+		else
             q = find(bot,1,'last');
-            ci(1) = times(q) + (times(q+1)-times(q)).*((cb-BF(q))./(BF(q+1)-BF(q)));
+			if q < length(BF)
+	            ci(1) = times(q) + (times(q+1)-times(q)).*((cb-BF(q))./(BF(q+1)-BF(q)));
+			else
+	            ci(1) = times(q) + (times(q+1)-times(q)).*((cb)./(BF(q)));				
+			end
         end
         if sum(top)==0
             ci(2) = times(len-1) + (times(len)-times(len-1)).*(1-(cb./(1-BF(len-1))));
